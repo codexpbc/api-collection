@@ -14,20 +14,6 @@ auth:bearer {
   token: {{jwt}}
 }
 
-body:json {
-  {
-    "accountHolderName": "Luckys Huat Food Group Inc",
-    "bankName": "Union",
-    "accountNumber": "639760301578",
-    "fiatCurrency": "USD",
-    "paymentRail": "BANK_TRANSFER",
-    "countryCode": "PH",
-    "details": {
-      "withdrawalPaymentChannel": "unionbank"
-    }
-  }
-}
-
 script:pre-request {
   const jsonwebtoken = require('jsonwebtoken');
   
