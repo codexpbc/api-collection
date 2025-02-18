@@ -14,12 +14,6 @@ auth:bearer {
   token: {{jwt}}
 }
 
-body:json {
-  {
-    "name": "test.user"
-  }
-}
-
 vars:pre-request {
   identity_id: id_1
 }
