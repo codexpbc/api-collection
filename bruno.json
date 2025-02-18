@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "name": "codex-apis",
+  "type": "collection",
+  "ignore": ["node_modules", ".git"],
+  "scripts": {
+    "moduleWhitelist": ["jsonwebtoken"],
+    "filesystemAccess": {
+      "allow": true
+    }
+  }
+}

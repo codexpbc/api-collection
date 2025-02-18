@@ -1,0 +1,52 @@
+meta {
+  name: Create bank account
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/v1/identity/{{identity_id}}/bank-accounts
+  body: json
+  auth: bearer
+}
+
+headers {
+  : 
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+body:json {
+  {
+    "accountHolderName": "bank holder name",
+    "bankName": "Union",
+    "accountNumber": "1111",
+    "fiatCurrency": "USD",
+    "paymentRail": "BANK_TRANSFER",
+    "countryCode": "PH",
+    "details": {
+      "withdrawalPaymentChannel": "unionbank"
+    }
+  }
+}
+
+vars:pre-request {
+  identity_id: id_1
+}
+
+script:pre-request {
+  const jsonwebtoken = require('jsonwebtoken');
+  
+  const privateKey = bru.getEnvVar("jwt_private_key").replaceAll('\\n', '\n')
+  
+  const jwt = jsonwebtoken.sign({}, privateKey, {
+      issuer: bru.getEnvVar("jwt_issuer"),
+      keyid: bru.getEnvVar("jwt_kid"),
+      algorithm: 'ES256',
+      expiresIn: '3650d', // 10 years
+  })
+  
+  bru.setEnvVar("jwt", jwt)
+}

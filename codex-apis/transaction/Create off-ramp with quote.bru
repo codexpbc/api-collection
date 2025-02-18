@@ -1,0 +1,45 @@
+meta {
+  name: Create off-ramp with quote
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/v1/off-ramp/quote
+  body: json
+  auth: bearer
+}
+
+headers {
+  : 
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+body:json {
+  {
+    "identityId": "id_01JM1GTC1TD9YK8F13HTK14CKD",
+    "quoteId": "quote_01JM2MATSK9EQZJ60N3D20A7AN",
+    "sourceAmount": "5",
+    "countryCode": "PH",
+    "bankAccountId": "bnk_01JM6B3TRNMKZQ6K1BKM7ZD006",
+    "withdrawalMethod": "BANK_TRANSFER"
+  }
+}
+
+script:pre-request {
+  const jsonwebtoken = require('jsonwebtoken');
+  
+  const privateKey = bru.getEnvVar("jwt_private_key").replaceAll('\\n', '\n')
+  
+  const jwt = jsonwebtoken.sign({}, privateKey, {
+      issuer: bru.getEnvVar("jwt_issuer"),
+      keyid: bru.getEnvVar("jwt_kid"),
+      algorithm: 'ES256',
+      expiresIn: '3650d', // 10 years
+  })
+  
+  bru.setEnvVar("jwt", jwt)
+}

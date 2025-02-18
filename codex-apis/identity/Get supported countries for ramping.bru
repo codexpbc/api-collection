@@ -1,0 +1,40 @@
+meta {
+  name: Get supported countries for ramping
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/v1/identity/{{identity_id}}/countries
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+body:json {
+  {
+    "name": "test.user"
+  }
+}
+
+vars:pre-request {
+  identity_id: id_1
+}
+
+script:pre-request {
+  const jsonwebtoken = require('jsonwebtoken');
+  
+  const privateKey = bru.getEnvVar("jwt_private_key").replaceAll('\\n', '\n')
+  
+  const jwt = jsonwebtoken.sign({}, privateKey, {
+      issuer: bru.getEnvVar("jwt_issuer"),
+      keyid: bru.getEnvVar("jwt_kid"),
+      algorithm: 'ES256',
+      expiresIn: '3650d', // 10 years
+  })
+  
+  bru.setEnvVar("jwt", jwt)
+}

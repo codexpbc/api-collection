@@ -1,0 +1,44 @@
+meta {
+  name: Get off-ramp quotes
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/api/v1/quotes/off-ramp?sourceCurrency=USDC&sourceNetwork=ETHEREUM&destinationCurrency=USD&destinationNetwork=FIAT&country=PH
+  body: none
+  auth: bearer
+}
+
+params:query {
+  sourceCurrency: USDC
+  sourceNetwork: ETHEREUM
+  destinationCurrency: USD
+  destinationNetwork: FIAT
+  country: PH
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+body:json {
+  {
+    "name": "test.user"
+  }
+}
+
+script:pre-request {
+  const jsonwebtoken = require('jsonwebtoken');
+  
+  const privateKey = bru.getEnvVar("jwt_private_key").replaceAll('\\n', '\n')
+  
+  const jwt = jsonwebtoken.sign({}, privateKey, {
+      issuer: bru.getEnvVar("jwt_issuer"),
+      keyid: bru.getEnvVar("jwt_kid"),
+      algorithm: 'ES256',
+      expiresIn: '3650d', // 10 years
+  })
+  
+  bru.setEnvVar("jwt", jwt)
+}

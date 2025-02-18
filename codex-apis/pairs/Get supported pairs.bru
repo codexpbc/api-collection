@@ -1,0 +1,35 @@
+meta {
+  name: Get supported pairs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/v1/supported-pairs/off-ramp?country=PH&orderType=QUOTE
+  body: none
+  auth: bearer
+}
+
+params:query {
+  country: PH
+  orderType: QUOTE
+}
+
+auth:bearer {
+  token: {{jwt}}
+}
+
+script:pre-request {
+  const jsonwebtoken = require('jsonwebtoken');
+  
+  const privateKey = bru.getEnvVar("jwt_private_key").replaceAll('\\n', '\n')
+  
+  const jwt = jsonwebtoken.sign({}, privateKey, {
+      issuer: bru.getEnvVar("jwt_issuer"),
+      keyid: bru.getEnvVar("jwt_kid"),
+      algorithm: 'ES256',
+      expiresIn: '3650d', // 10 years
+  })
+  
+  bru.setEnvVar("jwt", jwt)
+}
