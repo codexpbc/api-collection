@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/identity/{{identity_id}}/wallets/total-balances?chain=ETHEREUM
+  url: {{base_url}}/api/v1/identity/{{identity_id}}/wallets/total-balances?paymentNetwork=ETHEREUM
   body: none
   auth: bearer
 }
 
 params:query {
-  chain: ETHEREUM
+  paymentNetwork: ETHEREUM
 }
 
 auth:bearer {
