@@ -1,6 +1,8 @@
 # Bruno collection to call Codex apis
 
-Api documentation [here](api.codex.is/docs)
+Detailed Guides [here](https://guides.codex.is)
+
+OpenAPI Reference [here](https://api.codex.is/docs)
 
 ## Getting started
 
