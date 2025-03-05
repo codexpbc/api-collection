@@ -25,7 +25,7 @@ body:json {
     "accountNumber": "1111",
     "fiatCurrency": "USD",
     "paymentRail": "BANK_TRANSFER",
-    "countryCode": "PH",
+    "provider": "",
     "details": {
       "withdrawalPaymentChannel": "unionbank"
     }
@@ -33,7 +33,7 @@ body:json {
 }
 
 vars:pre-request {
-  identity_id: id_1
+  identity_id: id_test1
 }
 
 script:pre-request {

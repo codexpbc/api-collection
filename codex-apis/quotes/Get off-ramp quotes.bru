@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/quotes/off-ramp?sourceCurrency=USDC&sourceNetwork=ETHEREUM&destinationCurrency=USD&destinationNetwork=FIAT&country=PH
+  url: {{base_url}}/api/v1/quotes/off-ramp?sourceCurrency=USDC&sourceNetwork=ETHEREUM&destinationCurrency=USD&destinationNetwork=FIAT&provider
   body: none
   auth: bearer
 }
@@ -15,7 +15,7 @@ params:query {
   sourceNetwork: ETHEREUM
   destinationCurrency: USD
   destinationNetwork: FIAT
-  country: PH
+  provider: 
 }
 
 auth:bearer {

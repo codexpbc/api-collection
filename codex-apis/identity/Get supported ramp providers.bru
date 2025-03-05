@@ -1,11 +1,11 @@
 meta {
-  name: Get supported countries for ramping
+  name: Get supported ramp providers
   type: http
   seq: 1
 }
 
 get {
-  url: {{base_url}}/api/v1/identity/{{identity_id}}/countries
+  url: {{base_url}}/api/v1/identity/{{identity_id}}/providers
   body: none
   auth: bearer
 }
@@ -15,7 +15,7 @@ auth:bearer {
 }
 
 vars:pre-request {
-  identity_id: id_1
+  identity_id: id_test1
 }
 
 script:pre-request {

@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/identity/{{identity_id}}/wallets/total-balances
+  url: {{base_url}}/api/v1/identity/{{identity_id}}/wallets/total-balances?chain=ETHEREUM
   body: none
   auth: bearer
+}
+
+params:query {
+  chain: ETHEREUM
 }
 
 auth:bearer {
@@ -21,7 +25,7 @@ body:json {
 }
 
 vars:pre-request {
-  identity_id: id_1
+  identity_id: id_test1
 }
 
 script:pre-request {
