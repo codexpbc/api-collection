@@ -5,14 +5,15 @@ meta {
 }
 
 get {
-  url: {{base_url}}/api/v1/supported-pairs/off-ramp?country=PH&orderType=INSTANT
+  url: {{base_url}}/api/v1/supported-pairs/off-ramp?provider&orderType=INSTANT&direction=OFF_RAMP
   body: none
   auth: bearer
 }
 
 params:query {
   provider: 
-  orderType: QUOTE
+  orderType: INSTANT
+  direction: OFF_RAMP
 }
 
 auth:bearer {

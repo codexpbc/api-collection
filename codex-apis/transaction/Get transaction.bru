@@ -1,12 +1,12 @@
 meta {
-  name: Get Transaction status
+  name: Get transaction
   type: http
-  seq: 1
+  seq: 3
 }
 
 get {
-  url: {{base_url}}/api/v1/transactions/{{transaction_id}}
-  body: json
+  url: {{base_url}}/api/v1/transactions/tx_1
+  body: none
   auth: bearer
 }
 
@@ -16,10 +16,22 @@ headers {
 
 auth:bearer {
   token: {{jwt}}
-} 
+}
 
-vars:pre-request {
-  transaction_id: txn_01JM98YJEKMK654Q09Y86Q9Z3K
+body:json {
+  {
+    "identityId": "id_test1",
+    "source": {
+      "amount": "1",
+      "paymentNetwork": "ETHEREUM",
+      "currency": "USDC"
+    },
+    "destination": {
+      "currency": "PHP"
+    },
+    "provider": "COINS_PH",
+    "paymentMethodId": "pm_test1"
+  }
 }
 
 script:pre-request {
