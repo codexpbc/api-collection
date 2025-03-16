@@ -1,17 +1,37 @@
 meta {
-  name: Get all bank accounts
+  name: Create instant off-ramp
   type: http
   seq: 2
 }
 
-get {
-  url: {{base_url}}/api/v1/bank-accounts
-  body: none
+post {
+  url: {{base_url}}/api/v1/off-ramp/instant
+  body: json
   auth: bearer
+} 
+
+headers {
+  : 
 }
 
 auth:bearer {
   token: {{jwt}}
+}
+
+body:json {
+  {
+    "identityId": "id_test1",
+    "source": {
+      "amount": "1",
+      "paymentNetwork": "ETHEREUM",
+      "currency": "USDC"
+    },
+    "destination": {
+      "currency": "PHP"
+    },
+    "provider": "",
+    "paymentMethodId": "pm_test1"
+  }
 }
 
 script:pre-request {

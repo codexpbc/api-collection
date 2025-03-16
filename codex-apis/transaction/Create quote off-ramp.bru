@@ -1,11 +1,11 @@
 meta {
-  name: Create bank account
+  name: Create quote off-ramp
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
-  url: {{base_url}}/api/v1/identity/{{identity_id}}/bank-accounts
+  url: {{base_url}}/api/v1/off-ramp/quote
   body: json
   auth: bearer
 }
@@ -20,20 +20,12 @@ auth:bearer {
 
 body:json {
   {
-    "accountHolderName": "bank holder name",
-    "bankName": "Union",
-    "accountNumber": "1111",
-    "fiatCurrency": "USD",
-    "paymentRail": "BANK_TRANSFER",
+    "identityId": "id_test1",
+    "quoteId": "quote_01JN5M4P5Y5PZTJ2P4Z91D004H",
+    "sourceAmount": "1",
     "provider": "",
-    "details": {
-      "withdrawalPaymentChannel": "unionbank"
-    }
+    "paymentMethodId": "pm_test_1"
   }
-}
-
-vars:pre-request {
-  identity_id: id_test1
 }
 
 script:pre-request {
